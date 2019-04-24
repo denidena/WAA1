@@ -84,14 +84,11 @@ public class GosslingatorTest {
         }
         Assert.assertEquals("50", driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
         Assert.assertEquals("ryans", driver.findElement(By.cssSelector("div.ryan-counter h3")).getText());
-
-
-        System.out.println("message  " + driver.findElement(By.cssSelector("h1.tooManyRyans")).getText());
+        //System.out.println("message  " + driver.findElement(By.cssSelector("h1.tooManyRyans")).getText());
         Assert.assertEquals("NUMBER OF\n" +
                 "RYANS\n" +
                 "IS TOO DAMN\n" +
                 "HIGH", driver.findElement(By.cssSelector("h1.tooManyRyans")).getText());
-
         driver.close();
         driver.quit();
 
