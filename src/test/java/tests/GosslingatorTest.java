@@ -67,9 +67,9 @@ public class GosslingatorTest {
         removeRyanButton.click();
         // 3. overit pocitanie ryanov
         String NumberOfRyan = "div.ryan-counter ";
-        String actualNumberOfRyans = driver.findElement(By.cssSelector(NumberOfRyan +"h2")).getText();
-        String actualRyanDesc = driver.findElement(By.cssSelector(NumberOfRyan +"h3")).getText();
-        Assert.assertEquals("2",actualNumberOfRyans);
+        String actualNumberOfRyans = driver.findElement(By.cssSelector(NumberOfRyan + "h2")).getText();
+        String actualRyanDesc = driver.findElement(By.cssSelector(NumberOfRyan + "h3")).getText();
+        Assert.assertEquals("2", actualNumberOfRyans);
         Assert.assertEquals("ryans", actualRyanDesc);
         System.out.println("Number of Ryans is: " + actualNumberOfRyans);
     }
@@ -94,8 +94,48 @@ public class GosslingatorTest {
                 "RYANS\n" +
                 "IS TOO DAMN\n" +
                 "HIGH", driver.findElement(By.cssSelector("h1.tooManyRyans")).getText());
-
     }
+
+    @Test
+    public void itShoudlCheckTheNumberOfRyansOnFlyWithFor() {
+        WebElement addRyanButton = driver.findElement(By.id("addRyan"));
+        for (int i = 0; i < 50; i++) {
+            //System.out.println(i);
+            addRyanButton.click();
+            String actualNoOfRyans = driver.findElement(By.id("ryanCounter")).getText();
+            //prevedenie na string oba retazce
+            Assert.assertEquals(String.valueOf(i + 1), actualNoOfRyans);
+
+            //overit sklonovanie pomocou podmienky
+            String actulalDescription = driver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
+            if (i + 1 == 1) {
+                Assert.assertEquals("ryan", actulalDescription);
+            }
+            if (i + 1 >= 2) {
+                Assert.assertEquals("ryans", actulalDescription);
+            }
+            //prevedenie oba retazce na cisla
+            //int result = Integer.parseInt(actualNoOfRyans);
+            //Assert.assertEquals(i+1, result);
+        }
+    }
+
+    @Test
+    public void itShoudlCheckTheNumberOfRyansOnFlyWithWhile() {
+        WebElement addRyanButton = driver.findElement(By.id("addRyan"));
+        String actualNoOfRyan = driver.findElement(By.id("ryanCounter")).getText();
+        //! je negacia
+        int clicksLimit =30;
+        int clicks=0;
+        while ((!actualNoOfRyan.equals("50")) && clicks<clicksLimit) {
+            System.out.println(actualNoOfRyan);
+            addRyanButton.click();
+            actualNoOfRyan = driver.findElement(By.id("ryanCounter")).getText();
+            clicks++;
+        }
+    }
+
+
 
 
 }
