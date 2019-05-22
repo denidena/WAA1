@@ -9,7 +9,7 @@ public class GossingatorPage {
     WebDriver pageDriver;
 
     public GossingatorPage(WebDriver driver) {
-    this.pageDriver = driver;
+        this.pageDriver = driver;
     }
 
     public void addRyan() {
@@ -28,8 +28,6 @@ public class GossingatorPage {
     public int getNumberOfRyanImages() {
         return pageDriver.findElements(By.cssSelector("img")).size();
     }
-
-
 
 
 }
