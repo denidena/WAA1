@@ -8,13 +8,13 @@ import pages.PokePokePage;
 
 public class PokemonTestik extends TestBase {
 
-    private PokePokePage PokePokePage;
+    private PokePokePage PokePage;
 
     @Before
     public void openPage() {
         //1.otvorit stranku
         driver.get(BASE_URL + "/vybersi.php");
-        PokePokePage = new PokePokePage(driver);
+        PokePage = new PokePokePage(driver);
     }
 
     @Test
@@ -23,11 +23,15 @@ public class PokemonTestik extends TestBase {
 
         for (String pokemon : selectedPokemons) {
             //vyberiem pokemona
-            PokePokePage.selectPokemon(pokemon);
+            PokePage.selectPokemon(pokemon);
             //overim hlasku
-            Assert.assertEquals(PokePokePage.getExpectedMessage(pokemon), PokePokePage.getActualMessage());
+            Assert.assertEquals(getFormattedMessage(pokemon), PokePage.getActualMessage());
         }
     }
 
+    //pomocna metoda k testom len formatuje veci, nie je to akcia
+    private String getFormattedMessage(String pokemonName) {
+        return String.format("I choose you %s !", pokemonName);
+    }
 
 }

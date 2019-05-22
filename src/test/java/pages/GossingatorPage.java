@@ -3,18 +3,29 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class GossingatorPage {
 
+    //vzdy ked vytvory objeckt tak sa nachadza RyanButton amusi ho najst
+    @FindBy(id = "addRyan")
+    private WebElement addRyanButton;
+
+    @FindBy(css = "div.ryan-counter h3")
+    private WebElement ryanDescription;
+
     WebDriver pageDriver;
+
 
     public GossingatorPage(WebDriver driver) {
         this.pageDriver = driver;
+        //nainicializujeme si element pomocou this
+        PageFactory.initElements(pageDriver, this);
     }
 
     public void addRyan() {
-        WebElement ryanButton = pageDriver.findElement(By.id("addRyan"));
-        ryanButton.click();
+        addRyanButton.click();
     }
 
     public String getRyanCounterNumber() {
@@ -22,7 +33,7 @@ public class GossingatorPage {
     }
 
     public String getCounterDescription() {
-        return pageDriver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
+        return ryanDescription.getText();
     }
 
     public int getNumberOfRyanImages() {
