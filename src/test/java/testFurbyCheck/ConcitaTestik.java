@@ -7,29 +7,29 @@ import org.junit.Test;
 import pages.KoncitaPage;
 
 public class ConcitaTestik extends TestBase {
-
-    private KoncitaPage Koncita;
+    //si to tu rovno spravim a potom som vybavena
+    private KoncitaPage koncita;
 
     @Before
     public void openPage() {
         //1.otvorit stranku
         driver.get(BASE_URL + "/zenaalebomuz.php");
-        Koncita = new KoncitaPage(driver);
+        koncita= new KoncitaPage(driver);
     }
 
     @Test
     public void noOptionShouldBeSelected() {
-        Koncita.SelectedOptionYesNoByXpath("//input[@value='wurst']");
-        Koncita.SelectedOptionYesNoByXpath("//label[text()='Zena']/input");
+        koncita.SelectedOptionYesNoByXpath("//input[@value='wurst']");
+        koncita.SelectedOptionYesNoByXpath("//label[text()='Zena']/input");
     }
 
     @Test
     public void itShouldSelectMale() {
-        Koncita.clickOnWurst();
+        koncita.clickOnWurst();
         //overit hlasku
-        Assert.assertEquals("It's wurst", Koncita.getActualKonchitaMessage());
+        Assert.assertEquals("It's wurst", koncita.getActualKonchitaMessage());
         //overit ze moznost zena nie je vybrata
-        Koncita.SelectedOptionYesNoByXpath("//label[text()='Zena']/input");
+        koncita.SelectedOptionYesNoByXpath("//label[text()='Zena']/input");
     }
 
 }

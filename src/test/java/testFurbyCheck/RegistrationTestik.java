@@ -1,18 +1,20 @@
 package testFurbyCheck;
 
+import base.TestBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-
-import base.TestBase;
+import pages.RegistrationPage;
 
 public class RegistrationTestik extends TestBase {
+    private RegistrationPage regPage;
 
     @Before
     public void openPage() {
         //1.otvorit stranku
         driver.get(BASE_URL + "/registracia.php ");
+        regPage = new RegistrationPage(driver);
     }
 
     @Test
@@ -22,12 +24,7 @@ public class RegistrationTestik extends TestBase {
         String priezvisko = "mojsej";
         String heslo = "123456";
 
-        //zadam zakladne udaje
-        driver.findElement(By.name("email")).sendKeys(email);
-        driver.findElement(By.name("name")).sendKeys(meno);
-        driver.findElement(By.name("surname")).sendKeys(priezvisko);
-        driver.findElement(By.name("password")).sendKeys(heslo);
-        driver.findElement(By.name("password-repeat")).sendKeys(heslo);
+        regPage.enterData(email,meno, priezvisko, heslo);
 
         //kliknut na checkbox som robot
         driver.findElement(By.name("robot")).click();
@@ -46,4 +43,5 @@ public class RegistrationTestik extends TestBase {
         //overit uspesnu hlasku
         Assert.assertTrue(driver.findElement(By.cssSelector("div.alert-danger")).isDisplayed());
     }
+
 }
