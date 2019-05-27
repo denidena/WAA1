@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.Select;
 public class PokePokePage {
 
     private WebDriver pageDriver;
-
     public PokePokePage(WebDriver driver) {
         this.pageDriver = driver;
     }

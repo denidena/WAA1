@@ -4,30 +4,32 @@ import base.TestBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
+import pages.KoncitaPage;
 
 public class ConcitaTestik extends TestBase {
+
+    private KoncitaPage Koncita;
 
     @Before
     public void openPage() {
         //1.otvorit stranku
         driver.get(BASE_URL + "/zenaalebomuz.php");
+        Koncita = new KoncitaPage(driver);
     }
 
     @Test
     public void noOptionShouldBeSelected() {
-        Assert.assertFalse(driver.findElement(By.xpath("//input[@value='wurst']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//label[text()='Zena']/input")).isSelected());
+        Koncita.SelectedOptionYesNoByXpath("//input[@value='wurst']");
+        Koncita.SelectedOptionYesNoByXpath("//label[text()='Zena']/input");
     }
 
     @Test
     public void itShouldSelectMale() {
-        driver.findElement(By.xpath("//input[@value='wurst']")).click();
+        Koncita.clickOnWurst();
         //overit hlasku
-        String expectedMessage = "It's wurst";
-        String actualMessage = driver.findElement(By.cssSelector("h1.description")).getText();
-        Assert.assertEquals(expectedMessage, actualMessage);
+        Assert.assertEquals("It's wurst", Koncita.getActualKonchitaMessage());
         //overit ze moznost zena nie je vybrata
-        Assert.assertFalse(driver.findElement(By.xpath("//label[text()='Zena']/input")).isSelected());
+        Koncita.SelectedOptionYesNoByXpath("//label[text()='Zena']/input");
     }
+
 }
