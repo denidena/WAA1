@@ -19,24 +19,29 @@ public class WaitForItTestik extends TestBase {
     @Test
     public void waitForValue() {
         String expectedText = "dary !!!";
-        //        Thread.sleep(5000);
+        //Thread.sleep(5000);
         driver.findElement(By.id("startWaitForText")).click();
-        WebElement input = driver.findElement(By.id("startWaitForText"));
+        WebElement input = driver.findElement(By.id("waitForTextInput"));
 
         new WebDriverWait(driver, 5).
                 until(ExpectedConditions.attributeToBe(input, "value", expectedText));
         Assert.assertEquals(expectedText, input.getAttribute("value"));
+        System.out.println("zbehol kod uspesne");
 
     }
 
     @Test
     public void waitforClass() {
         String expectedClass = "error";
-        //        Thread.sleep(5000);
+        //          Thread.sleep(5000);
         driver.findElement(By.id("startWaitForProperty")).click();
-        new WebDriverWait(driver, 5).
-                until(ExpectedConditions.attributeContains(By.id("startWaitForProperty"), "class", expectedClass));
-        //Assert.assertEquals(expectedText, input.getAttribute("class"));
+        WebElement input = driver.findElement(By.id("waitForProperty"));
+
+        new WebDriverWait(driver, 10).
+                until(ExpectedConditions.attributeContains(input, "class", expectedClass));
+        System.out.println(input.getAttribute("value"));
+        Assert.assertEquals("form-control "+ expectedClass,  input.getAttribute("class"));
+        System.out.println("zbehol kod uspesne");
     }
 
 }
