@@ -34,11 +34,11 @@ public class SavingsCalculatorTest {
 
 
     @Test
-    public void test01ApplyForSavingsIsEnabled() {
+    public void ApplyForSavingsIsEnabled() {
         // zadam vsetky informacie(fond, suma, email, roky)
         // tlacidlo 'Apply for saving' je enabled
 
-        System.out.println("test1...");
+        System.out.println("test01...");
 
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
@@ -55,19 +55,18 @@ public class SavingsCalculatorTest {
         // check if the button is enabled by cssSelector
         //expected action is that class when enabled "btn btn-block btn-success"
 
-        // V1
-        // Assert.assertEquals("btn btn-block btn-success", driver.findElement(By.cssSelector("button.btn-success")).getAttribute("class"));
+        // V1 Assert.assertEquals("btn btn-block btn-success", driver.findElement(By.cssSelector("button.btn-success")).getAttribute("class"));
         // V2
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-success")).isEnabled());
     }
 
     @Test
-    public void test02CheckIfSumsAreNotEmpty() {
+    public void CheckIfSumsAreNotEmpty() {
 
         // zadam vsetky informacie(fond, suma, email, roky)
         // overim ze sumy nie su prazdne
 
-        System.out.println("test2...");
+        System.out.println("test02...");
 
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
@@ -93,11 +92,11 @@ public class SavingsCalculatorTest {
     }
 
     @Test
-    public void test03CheckIfRiskIsNotEmpty() {
+    public void CheckIfRiskIsNotEmpty() {
         // zadam vsetky informacie(fond, suma, email, roky)
         // overim ze riziko nie je prazdne
 
-        System.out.println("test3...");
+        System.out.println("test03...");
 
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
@@ -122,9 +121,29 @@ public class SavingsCalculatorTest {
     }
 
     @Test
-    public void test04CheckIfRecentRequestContainsFund() {
-        System.out.println("test4...");
+    public void CheckIfRecentRequestContainsFund() {
+        System.out.println("test04...");
+
+        // zadam vsetky informacie(fond, suma, email, roky)
+        // v casti recent requests sa zobrazi novy zaznam,
+        // assert =  novy zaznam obsahuje nazov zvoleneho fondu.
+
+        //insert at first the fixed variables
+        String inputFund = "Tom & Jerry corp";
+        String inputSum = "1000";
+        String inputEmail = "1@tralala.com";
+        String inputYears = "15";
+
+        // fill in the fixed values
+        driver.findElement(By.id("fundSelect")).sendKeys(inputFund);
+        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(inputSum);
+        driver.findElement(By.id("yearsInput")).sendKeys(inputYears);
+        driver.findElement(By.id("emailInput")).sendKeys(inputEmail);
+
+
+        driver.findElement(By.cssSelector("button.btn-success")).click();
+        //p.fund-description
+        //expected is that new note is added and the fund name is there and correct
+        Assert.assertEquals(inputFund, driver.findElement(By.cssSelector("p.fund-description")).getText());
     }
-
-
 }
