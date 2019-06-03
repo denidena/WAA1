@@ -7,29 +7,24 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.SavingsCalculatorPage;
 
 public class SavingsCalculatorTest {
-
+    private SavingsCalculatorPage savePage;
     WebDriver driver;
 
     @Before
     public void setUp() {
-        //spustenie prehliadaca, otvorenie stranky,
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        //0. spustit prehliadac
         driver = new ChromeDriver();
-        //1. otvorit stranku
         driver.get("http://localhost:80/savingscalculator.php");
-        System.out.println("init...");
+        savePage = new SavingsCalculatorPage(driver);
     }
 
     @After
     public void tearDown() {
-        //4.zatvorit prehliadac
         driver.close();
-        //5. ukoncit session
         driver.quit();
-        System.out.println("exiting...");
     }
 
 
@@ -37,7 +32,6 @@ public class SavingsCalculatorTest {
     public void ApplyForSavingsIsEnabled() {
         // zadam vsetky informacie(fond, suma, email, roky)
         // tlacidlo 'Apply for saving' je enabled
-
         System.out.println("test01...");
 
         //insert at first the fixed variables
@@ -47,10 +41,7 @@ public class SavingsCalculatorTest {
         String inputYears = "15";
 
         // fill in the fixed values
-        driver.findElement(By.id("fundSelect")).sendKeys(inputFund);
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(inputSum);
-        driver.findElement(By.id("yearsInput")).sendKeys(inputYears);
-        driver.findElement(By.id("emailInput")).sendKeys(inputEmail);
+        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
 
         // check if the button is enabled by cssSelector
         //expected action is that class when enabled "btn btn-block btn-success"
@@ -75,10 +66,7 @@ public class SavingsCalculatorTest {
         String inputYears = "15";
 
         // fill in the fixed values
-        driver.findElement(By.id("fundSelect")).sendKeys(inputFund);
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(inputSum);
-        driver.findElement(By.id("yearsInput")).sendKeys(inputYears);
-        driver.findElement(By.id("emailInput")).sendKeys(inputEmail);
+        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
 
         //.div[1]/p" div.result matove riesenie
         // a som na to prisla presne o 18:40  (//body//div//div//div//p)[1]
@@ -105,10 +93,7 @@ public class SavingsCalculatorTest {
         String inputYears = "15";
 
         // fill in the fixed values
-        driver.findElement(By.id("fundSelect")).sendKeys(inputFund);
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(inputSum);
-        driver.findElement(By.id("yearsInput")).sendKeys(inputYears);
-        driver.findElement(By.id("emailInput")).sendKeys(inputEmail);
+        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
 
         //.div[1]/p" div.result matove riesenie
         // a som na to prisla presne o 18:40  (//body//div//div//div//p)[1]
@@ -135,10 +120,7 @@ public class SavingsCalculatorTest {
         String inputYears = "15";
 
         // fill in the fixed values
-        driver.findElement(By.id("fundSelect")).sendKeys(inputFund);
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(inputSum);
-        driver.findElement(By.id("yearsInput")).sendKeys(inputYears);
-        driver.findElement(By.id("emailInput")).sendKeys(inputEmail);
+        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
 
 
         driver.findElement(By.cssSelector("button.btn-success")).click();
