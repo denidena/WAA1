@@ -1,5 +1,7 @@
 package waaVystupnyTest;
 
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.person.Person;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,18 +32,19 @@ public class SavingsCalculatorTest {
 
     @Test
     public void ApplyForSavingsIsEnabled() {
-        // zadam vsetky informacie(fond, suma, email, roky)
-        // tlacidlo 'Apply for saving' je enabled
+        // zadam vsetky informacie(fond, suma, email, roky) a tlacidlo 'Apply for saving' je enabled
         System.out.println("test01...");
+
+        Fairy fairy = Fairy.create();
+        Person fakePerson = fairy.person();
 
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
         String inputSum = "1000";
-        String inputEmail = "1@tralala.com";
         String inputYears = "15";
 
         // fill in the fixed values
-        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
+        savePage.enterData(inputFund, inputSum, fakePerson.getEmail(), inputYears);
 
         // check if the button is enabled by cssSelector
         //expected action is that class when enabled "btn btn-block btn-success"
@@ -57,14 +60,16 @@ public class SavingsCalculatorTest {
         // overim ze sumy nie su prazdne
         System.out.println("test02...");
 
+        Fairy fairy = Fairy.create();
+        Person fakePerson = fairy.person();
+
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
         String inputSum = "1000";
-        String inputEmail = "1@tralala.com";
         String inputYears = "15";
 
         // fill in the fixed values
-        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
+        savePage.enterData(inputFund, inputSum, fakePerson.getEmail(), inputYears);
 
         //.div[1]/p" div.result matove riesenie
         // a som na to prisla presne o 18:40  (//body//div//div//div//p)[1]
@@ -82,14 +87,16 @@ public class SavingsCalculatorTest {
         // overim ze riziko nie je prazdne
         System.out.println("test03...");
 
+        Fairy fairy = Fairy.create();
+        Person fakePerson = fairy.person();
+
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
         String inputSum = "1000";
-        String inputEmail = "1@tralala.com";
         String inputYears = "15";
 
         // fill in the fixed values
-        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
+        savePage.enterData(inputFund, inputSum, fakePerson.getEmail(), inputYears);
 
         //.div[1]/p" div.result matove riesenie
         // a som na to prisla presne o 18:40  (//body//div//div//div//p)[1]
@@ -104,6 +111,9 @@ public class SavingsCalculatorTest {
     public void CheckIfRecentRequestContainsFund() {
         System.out.println("test04...");
 
+        Fairy fairy = Fairy.create();
+        Person fakePerson = fairy.person();
+
         // zadam vsetky informacie(fond, suma, email, roky)
         // v casti recent requests sa zobrazi novy zaznam,
         // assert =  novy zaznam obsahuje nazov zvoleneho fondu.
@@ -111,11 +121,10 @@ public class SavingsCalculatorTest {
         //insert at first the fixed variables
         String inputFund = "Tom & Jerry corp";
         String inputSum = "1000";
-        String inputEmail = "1@tralala.com";
         String inputYears = "15";
 
         // fill in the fixed values
-        savePage.enterData(inputFund, inputSum, inputEmail, inputYears);
+        savePage.enterData(inputFund, inputSum, fakePerson.getEmail(), inputYears);
         driver.findElement(By.cssSelector("button.btn-success")).click();
         //p.fund-description
         //expected is that new note is added and the fund name is there and correct
